@@ -1,10 +1,14 @@
 package ua.velychko.springcourse.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import ua.velychko.springcourse.models.Person;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -51,5 +55,51 @@ public class PersonDAO {
     // Delete a person by ID
     public void delete(int id) {
         jdbcTemplate.update(DELETE_PERSON, id);
+    }
+
+    // Testing Batch Insert Performance
+
+    public void testMultipleUpdate() {
+        List<Person> people = create1000People();
+        long before = System.currentTimeMillis();
+
+        for (Person person : people) {
+            jdbcTemplate.update(INSERT_PERSON, person.getName(), person.getAge(), person.getEmail());
+        }
+
+        long after = System.currentTimeMillis();
+        System.out.println("Time: " + (after - before));
+    }
+
+    private List<Person> create1000People() {
+        List<Person> people = new ArrayList<>();
+
+        for (int i = 11; i < 1011; i++) {
+            people.add(new Person(i, "Name" + i, 25, "test" + i + "@gmail.com"));
+        }
+
+        return people;
+    }
+
+    public void testBatchUpdate() {
+        List<Person> people = create1000People();
+        long before = System.currentTimeMillis();
+
+        jdbcTemplate.batchUpdate(INSERT_PERSON, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setString(1, people.get(i).getName());
+                ps.setInt(2, people.get(i).getAge());
+                ps.setString(3, people.get(i).getEmail());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return people.size();
+            }
+        });
+
+        long after = System.currentTimeMillis();
+        System.out.println("Time: " + (after - before));
     }
 }
