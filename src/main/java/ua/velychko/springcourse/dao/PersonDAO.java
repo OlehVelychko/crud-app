@@ -57,25 +57,20 @@ public class PersonDAO {
         jdbcTemplate.update(DELETE_PERSON, id);
     }
 
-    // Testing Batch Insert Performance
-
     public void testMultipleUpdate() {
         List<Person> people = create1000People();
-        long before = System.currentTimeMillis();
 
         for (Person person : people) {
             jdbcTemplate.update(INSERT_PERSON, person.getName(), person.getAge(), person.getEmail());
         }
 
-        long after = System.currentTimeMillis();
-        System.out.println("Time: " + (after - before));
     }
 
     private List<Person> create1000People() {
         List<Person> people = new ArrayList<>();
 
-        for (int i = 11; i < 1011; i++) {
-            people.add(new Person(i, "Name" + i, 25, "test" + i + "@gmail.com"));
+        for (int i = 0; i < 1000; i++) {
+            people.add(new Person(0, "Name" + i, 25, "test" + i + "@gmail.com"));
         }
 
         return people;
@@ -83,7 +78,6 @@ public class PersonDAO {
 
     public void testBatchUpdate() {
         List<Person> people = create1000People();
-        long before = System.currentTimeMillis();
 
         jdbcTemplate.batchUpdate(INSERT_PERSON, new BatchPreparedStatementSetter() {
             @Override
@@ -98,8 +92,5 @@ public class PersonDAO {
                 return people.size();
             }
         });
-
-        long after = System.currentTimeMillis();
-        System.out.println("Time: " + (after - before));
     }
 }
