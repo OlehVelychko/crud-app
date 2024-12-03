@@ -10,9 +10,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
+
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -26,10 +28,17 @@ public class PersonDAO {
     private static final String INSERT_PERSON = "INSERT INTO crud_app_schema.person (name, age, email) VALUES (?, ?, ?)";
     private static final String UPDATE_PERSON = "UPDATE crud_app_schema.person SET name=?, age=?, email=? WHERE id=?";
     private static final String DELETE_PERSON = "DELETE FROM crud_app_schema.person WHERE id=?";
+    private static final String SELECT_BY_EMAIL = "SELECT * FROM crud_app_schema.person WHERE email=?";
 
     // Fetch all persons
     public List<Person> index() {
         return jdbcTemplate.query(SELECT_ALL, new PersonMapper());
+    }
+
+    // Fetch a single person by Email
+    public Optional<Person> show(String email) {
+        return jdbcTemplate.query(SELECT_BY_EMAIL, new Object[]{email}, new PersonMapper())
+                .stream().findAny();
     }
 
     // Fetch a single person by ID
