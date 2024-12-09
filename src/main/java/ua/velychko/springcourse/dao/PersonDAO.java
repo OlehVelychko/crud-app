@@ -95,6 +95,7 @@ public class PersonDAO {
                 ps.setString(1, people.get(i).getName());
                 ps.setInt(2, people.get(i).getAge());
                 ps.setString(3, people.get(i).getEmail());
+                ps.setString(4, people.get(i).getAddress());
             }
 
             @Override
