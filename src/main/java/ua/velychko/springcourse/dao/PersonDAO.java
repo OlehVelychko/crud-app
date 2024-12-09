@@ -25,8 +25,8 @@ public class PersonDAO {
     // SQL Queries
     private static final String SELECT_ALL = "SELECT * FROM crud_app_schema.person";
     private static final String SELECT_BY_ID = "SELECT * FROM crud_app_schema.person WHERE id=?";
-    private static final String INSERT_PERSON = "INSERT INTO crud_app_schema.person (name, age, email) VALUES (?, ?, ?)";
-    private static final String UPDATE_PERSON = "UPDATE crud_app_schema.person SET name=?, age=?, email=? WHERE id=?";
+    private static final String INSERT_PERSON = "INSERT INTO crud_app_schema.person (name, age, email, address) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_PERSON = "UPDATE crud_app_schema.person SET name=?, age=?, email=? address=? WHERE id=?";
     private static final String DELETE_PERSON = "DELETE FROM crud_app_schema.person WHERE id=?";
     private static final String SELECT_BY_EMAIL = "SELECT * FROM crud_app_schema.person WHERE email=?";
 
@@ -49,7 +49,7 @@ public class PersonDAO {
 
     // Save a new person
     public void save(Person person) {
-        jdbcTemplate.update(INSERT_PERSON, person.getName(), person.getAge(), person.getEmail());
+        jdbcTemplate.update(INSERT_PERSON, person.getName(), person.getAge(), person.getEmail(), person.getAddress());
     }
 
     // Update an existing person by ID
@@ -58,6 +58,7 @@ public class PersonDAO {
                 updatedPerson.getName(),
                 updatedPerson.getAge(),
                 updatedPerson.getEmail(),
+                updatedPerson.getAddress(),
                 id);
     }
 
@@ -79,7 +80,7 @@ public class PersonDAO {
         List<Person> people = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
-            people.add(new Person(0, "Name" + i, 25, "test" + i + "@gmail.com"));
+            people.add(new Person(0, "Name" + i, 25, "test" + i + "@gmail.com", "some address"));
         }
 
         return people;
