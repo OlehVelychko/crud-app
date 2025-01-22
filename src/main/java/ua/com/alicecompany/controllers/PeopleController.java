@@ -1,4 +1,4 @@
-package ua.velychko.springcourse.controllers;
+package ua.com.alicecompany.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ua.velychko.springcourse.dao.PersonDAO;
-import ua.velychko.springcourse.models.Person;
-import ua.velychko.springcourse.util.PersonValidator;
+import ua.com.alicecompany.dao.PersonDAO;
+import ua.com.alicecompany.models.Person;
+import ua.com.alicecompany.util.PersonValidator;
 
 @Controller
 @RequestMapping("/people")

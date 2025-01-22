@@ -1,11 +1,11 @@
-package ua.velychko.springcourse.util;
+package ua.com.alicecompany.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import ua.velychko.springcourse.dao.PersonDAO;
-import ua.velychko.springcourse.models.Person;
+import ua.com.alicecompany.dao.PersonDAO;
+import ua.com.alicecompany.models.Person;
 
 @Component
 public class PersonValidator implements Validator {

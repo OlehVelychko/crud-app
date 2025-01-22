@@ -1,4 +1,4 @@
-package ua.velychko.springcourse.controllers;
+package ua.com.alicecompany.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.velychko.springcourse.dao.PersonDAO;
+import ua.com.alicecompany.dao.PersonDAO;
 
 @Controller
 @RequestMapping("/test-batch-update")
@@ -26,7 +26,7 @@ public class BatchController {
         return "batch/index";
     }
 
-    @GetMapping("/without")
+    /*@GetMapping("/without")
     public String withoutBatch() {
         long before = System.currentTimeMillis();
         personDAO.testMultipleUpdate();
@@ -41,5 +41,5 @@ public class BatchController {
         long after = System.currentTimeMillis();
         logger.info("Batch update time: {} ms", (after - before));
         return "redirect:/people";
-    }
+    }*/
 }

@@ -1,23 +1,33 @@
-package ua.velychko.springcourse.models;
+package ua.com.alicecompany.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+@Entity
+@Table(name = "person", schema = "crud_app_schema")
 public class Person {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @Column(name = "name", nullable = false, length = 30)
     private String name;
 
     @Min(value = 0, message = "Age should be greater than 0")
+    @Column(name = "age", nullable = false)
     private int age;
 
     @NotEmpty(message = "Email should not be empty")
     @Email(message = "Email should be valid")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Pattern(regexp = "[A-Z]\\w+, [A-Z]\\w+, \\d{6}",
             message = "Your address should be in this format: Country, City, Postal Code (6 digits)")
+    @Column(name = "address", length = 255)
     private String address;
 
     public Person() {

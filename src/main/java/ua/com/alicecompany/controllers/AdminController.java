@@ -1,4 +1,4 @@
-package ua.velychko.springcourse.controllers;
+package ua.com.alicecompany.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.velychko.springcourse.dao.PersonDAO;
-import ua.velychko.springcourse.models.Person;
+import ua.com.alicecompany.dao.PersonDAO;
+import ua.com.alicecompany.models.Person;
 
 @Controller
 @RequestMapping("/admin")

@@ -1,4 +1,4 @@
-package ua.velychko.springcourse.config;
+package ua.com.alicecompany.config;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
